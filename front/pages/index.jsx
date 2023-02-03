@@ -1,17 +1,63 @@
 import Head from "next/head";
-import { Inter } from "@next/font/google";
 import { useState } from "react";
+import { useQuery, QueryClient, dehydrate, useMutation } from "react-query";
+import { User } from "../components/User";
+import { Total } from "../components/Total";
 
-const inter = Inter({ subsets: ["latin"] });
+const postResults = async (show, data) => {
+ await fetch(`http://localhost:4445/2023`, {
+  method: "POST",
+  headers: {
+   "Content-Type": "application/json;charset=utf-8",
+  },
+  body: JSON.stringify({
+   show,
+   data,
+  }),
+ });
+};
+
+const getAll = async () => {
+ const res = await fetch(`http://localhost:4445/2023`);
+ return res.json();
+};
+
+export const getStaticProps = async () => {
+ const queryClient = new QueryClient();
+
+ await queryClient.prefetchQuery("users", getAll);
+
+ return {
+  props: { dehydratedState: dehydrate(queryClient) },
+ };
+};
 
 export default function Home() {
+ const users = useQuery("users", getAll);
+
  const [results, setResults] = useState("");
  const [show, setShow] = useState("");
 
+ const starMutation = useMutation(async (req) => {
+  await postResults(req.show.slice(0, 3), req.data);
+  await users.refetch();
+ });
+
  const submitHandler = (e) => {
   e.preventDefault();
-  console.log(results);
+  const data = results.split("\n");
+  starMutation.mutate({ show, data });
  };
+
+ function sumArray(array) {
+  let sum = 0;
+  for (const item of array) {
+   sum += item.points;
+  }
+  return sum;
+ }
+
+ if (users.isLoading) return <div>Loading...</div>;
  return (
   <>
    <Head>
@@ -43,6 +89,47 @@ export default function Home() {
      Отправить
     </button>
    </form>
+   <div className="w-full mt-5">
+    <div className="w-full flex">
+     <div className="px-2 py-1 bg-transparent text-transparent mx-2 w-[15%] rounded-lg"></div>
+     <div className="grid flex-1 grid-cols-12 gap-2">
+      {users.data[0]?.results.map((show, i) => (
+       <div className="py-1 bg-slate-300 rounded-lg text-center h-8">
+        {show.show}
+       </div>
+      ))}
+      <Total>Всего</Total>
+     </div>
+    </div>
+    <div className="w-full flex">
+     <div className="w-[15%]">
+      {users.data.map((user, i) => (
+       <User>{i + 1 + ". " + user.user}</User>
+      ))}
+     </div>
+     <div className="flex-1 flex">
+      {users.data[0]?.results.map((show) => (
+       <div className="w-1/12 pl-2">
+        {users.data.map((user) => (
+         <div className="py-1 bg-slate-100 w-full h-8 m-2 rounded-lg text-center">
+          {
+           user.results[user.results.map((u) => u.show).indexOf(show.show)]
+            ?.points
+          }
+         </div>
+        ))}
+       </div>
+      ))}
+      <div className="w-1/12 ml-2">
+       {users.data.map((user) => (
+        <div className="my-2 pl-2">
+         <Total>{sumArray(user.results)}</Total>
+        </div>
+       ))}
+      </div>
+     </div>
+    </div>
+   </div>
   </>
  );
 }
