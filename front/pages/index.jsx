@@ -132,22 +132,21 @@ export default function Home() {
    )}
    <div className="w-full mt-6 flex justify-center">
     <YearBtn changeYear={changeYear} year={year}>
-     2022
-    </YearBtn>
-    <YearBtn changeYear={changeYear} year={year}>
      2023
     </YearBtn>
    </div>
    <div className="w-full mt-5">
     <div className="w-full flex mb-1">
      <div className="px-2 py-1 bg-transparent text-transparent ml-2 w-[15%] rounded-lg"></div>
-     <div className="flex flex-1">
+     <div className="flex flex-1 ml-2">
       {mostShowsUser()?.results.map((show, i) => (
-       <div className="py-1 bg-slate-300 rounded-lg text-center h-8 w-[calc(100%/13)] ml-2">
-        {show.show}
+       <div className={`w-[calc(100%/12.8)] pr-2`}>
+        <div className="bg-slate-300 py-1 rounded-lg text-center h-8">
+         {show.show}
+        </div>
        </div>
       ))}
-      <div className="w-[calc(100%/13)] ml-2">
+      <div className="w-[calc(100%/13)] pr-2">
        <Total>Всего</Total>
       </div>
      </div>
