@@ -24,6 +24,13 @@ function sumArray(array) {
 app.get("/2023", async (req, res) => {
   try{
     const r = await Year2023Model.find();
+    for (let i=0; i< r.length; i++) {
+      for (let j=1; j< r[i].results.length; j++) {
+        if (r[i].results[j].show == r[i].results[j-1].show){
+          r[i].results.splice(j-1, 1);
+        }
+      }
+    }
     for (let i = 1; i < r.length; i++) {
       for (let j = 0; j < r.length - i; j++) {
         if (sumArray(r[j].results) < sumArray(r[j+1].results)) {
@@ -80,6 +87,13 @@ app.post("/2023", async (req, res) => {
 app.get("/2022", async (req, res) => {
   try{
     const r = await Year2022Model.find();
+    for (let i=0; i< r.length; i++) {
+      for (let j=1; j< r[i].results.length; j++) {
+        if (r[i].results[j].show == r[i].results[j-1].show){
+          r[i].results.splice(j-1, 1);
+        }
+      }
+    }
     for (let i = 1; i < r.length; i++) {
       for (let j = 0; j < r.length - i; j++) {
         if (sumArray(r[j].results) < sumArray(r[j+1].results)) {
