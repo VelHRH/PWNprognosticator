@@ -154,7 +154,7 @@ export default function Home() {
     <div className="w-full flex">
      <div className="w-[15%]">
       {users.data.map((user, i) => (
-       <User>{i + 1 + ". " + user.user}</User>
+       <User place={i + 1}>{i + 1 + ". " + user.user}</User>
       ))}
      </div>
      <div className="flex-1 flex">
