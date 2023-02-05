@@ -132,6 +132,9 @@ export default function Home() {
    )}
    <div className="w-[1500px] xl:w-full mt-6 flex justify-center">
     <YearBtn changeYear={changeYear} year={year}>
+     2022
+    </YearBtn>
+    <YearBtn changeYear={changeYear} year={year}>
      2023
     </YearBtn>
    </div>
