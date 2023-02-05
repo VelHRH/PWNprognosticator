@@ -140,7 +140,7 @@ export default function Home() {
      <div className="px-2 py-1 bg-transparent text-transparent ml-2 w-[15%] rounded-lg"></div>
      <div className="flex flex-1 ml-2">
       {mostShowsUser()?.results.map((show, i) => (
-       <div className={`w-[calc(100%/12.8)] pr-2`}>
+       <div key={i} className={`w-[calc(100%/12.8)] pr-2`}>
         <div className="bg-slate-300 py-1 rounded-lg text-center h-8">
          {show.show}
         </div>
@@ -154,14 +154,19 @@ export default function Home() {
     <div className="w-full flex">
      <div className="w-[15%]">
       {users.data.map((user, i) => (
-       <User place={i + 1}>{i + 1 + ". " + user.user}</User>
+       <User key={i} place={i + 1}>
+        {i + 1 + ". " + user.user}
+       </User>
       ))}
      </div>
      <div className="flex-1 flex">
-      {mostShowsUser()?.results.map((show) => (
-       <div className="w-[calc(100%/13)] pl-2">
-        {users.data.map((user) => (
-         <div className="py-1 bg-slate-100 w-full h-8 m-2 rounded-lg text-center">
+      {mostShowsUser()?.results.map((show, i) => (
+       <div key={i} className="w-[calc(100%/13)] pl-2">
+        {users.data.map((user, i) => (
+         <div
+          key={i}
+          className="py-1 bg-slate-100 w-full h-8 m-2 rounded-lg text-center"
+         >
           {
            user.results[user.results.map((u) => u.show).indexOf(show.show)]
             ?.points
@@ -172,7 +177,7 @@ export default function Home() {
       ))}
       <div className="w-[calc(100%/13)] ml-2">
        {users.data.map((user) => (
-        <div className="my-2 pl-2">
+        <div key={user.user} className="my-2 pl-2">
          <Total>{sumArray(user.results)}</Total>
         </div>
        ))}
