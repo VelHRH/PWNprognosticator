@@ -38,6 +38,7 @@ export default function Home() {
  const [secret, setSecret] = useState("");
  const [postStatus, setPostStatus] = useState("none");
  const [year, setYear] = useState(2023);
+ const [search, setSearch] = useState("");
 
  const users = useQuery(["users", year], () => getAll(year));
 
@@ -87,7 +88,10 @@ export default function Home() {
    <Head>
     <title>Прогнозист</title>
     <meta name="description" content="PWNews prognosticator results" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+     name="viewport"
+     content="width=device-width, initial-scale=1.0, maximum-scale=1"
+    />
     <link rel="icon" href="/favicon.ico" />
    </Head>
    {process.env.NODE_ENV === "development" && (
@@ -140,7 +144,12 @@ export default function Home() {
    </div>
    <div className="w-[1500px] lg:w-full mt-5">
     <div className="w-full flex mb-1">
-     <div className="px-2 py-1 bg-transparent text-transparent ml-2 w-[15%] rounded-lg"></div>
+     <input
+      placeholder="Поиск..."
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      className="px-2 py-1 ml-2 w-[15%] rounded-lg border-2 border-slate-600"
+     ></input>
      <div className="flex flex-1 ml-2">
       {mostShowsUser()?.results.map((show, i) => (
        <div key={i} className={`w-[calc(100%/12.8)] pr-2`}>
@@ -156,34 +165,64 @@ export default function Home() {
     </div>
     <div className="w-full flex">
      <div className="w-[15%]">
-      {users.data.map((user, i) => (
-       <User key={i} place={i + 1}>
-        {i + 1 + ". " + user.user}
-       </User>
-      ))}
+      {users.data.map((user, i) =>
+       search === "" ? (
+        <User key={i} place={i + 1}>
+         {i + 1 + ". " + user.user}
+        </User>
+       ) : (
+        user.user.slice(0, search.length) === search && (
+         <User key={i} place={i + 1}>
+          {i + 1 + ". " + user.user}
+         </User>
+        )
+       )
+      )}
      </div>
      <div className="flex-1 flex">
       {mostShowsUser()?.results.map((show, i) => (
        <div key={i} className="w-[calc(100%/13)] pl-2">
-        {users.data.map((user, i) => (
-         <div
-          key={i}
-          className="py-1 bg-slate-100 w-full h-8 m-2 rounded-lg text-center"
-         >
-          {
-           user.results[user.results.map((u) => u.show).indexOf(show.show)]
-            ?.points
-          }
-         </div>
-        ))}
+        {users.data.map((user, i) =>
+         search === "" ? (
+          <div
+           key={i}
+           className="py-1 bg-slate-100 w-full h-8 m-2 rounded-lg text-center"
+          >
+           {
+            user.results[user.results.map((u) => u.show).indexOf(show.show)]
+             ?.points
+           }
+          </div>
+         ) : (
+          user.user.slice(0, search.length) === search && (
+           <div
+            key={i}
+            className="py-1 bg-slate-100 w-full h-8 m-2 rounded-lg text-center"
+           >
+            {
+             user.results[user.results.map((u) => u.show).indexOf(show.show)]
+              ?.points
+            }
+           </div>
+          )
+         )
+        )}
        </div>
       ))}
       <div className="w-[calc(100%/13)] ml-2">
-       {users.data.map((user) => (
-        <div key={user.user} className="my-2 pl-2">
-         <Total>{sumArray(user.results)}</Total>
-        </div>
-       ))}
+       {users.data.map((user) =>
+        search === "" ? (
+         <div key={user.user} className="my-2 pl-2">
+          <Total>{sumArray(user.results)}</Total>
+         </div>
+        ) : (
+         user.user.slice(0, search.length) === search && (
+          <div key={user.user} className="my-2 pl-2">
+           <Total>{sumArray(user.results)}</Total>
+          </div>
+         )
+        )
+       )}
       </div>
      </div>
     </div>
