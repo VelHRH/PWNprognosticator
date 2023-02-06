@@ -100,7 +100,7 @@ export default function Home() {
     <div className="w-full h-full fixed top-0 left-0 lg:hidden">
      <div
       onClick={() => setUserInfo("")}
-      className="w-full h-full bg-black opacity-70 "
+      className="w-full h-full bg-black opacity-70 fixed"
      ></div>
      <div className="w-[80%] rounded-lg bg-slate-50 opacity-100 absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]">
       <div className="text-center font-bold text-2xl my-3">{userInfo}</div>
