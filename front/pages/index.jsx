@@ -107,8 +107,8 @@ export default function Home() {
       <div className="grid grid-cols-3 md:grid-cols-5 w-full justify-between gap-3 px-5 pb-5">
        {users.data
         .find((user) => user.user === userInfo)
-        .results.map((res) => (
-         <div className="flex font-bold items-center">
+        .results.map((res, i) => (
+         <div key={i} className="flex font-bold items-center">
           <div className="bg-slate-600 py-2 w-10 text-center text-slate-50 border-2 border-slate-600 rounded-l-md">
            {res.show}
           </div>
