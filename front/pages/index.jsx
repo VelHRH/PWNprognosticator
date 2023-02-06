@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useState } from "react";
 import { useQuery, QueryClient, dehydrate, useMutation } from "react-query";
 import { User } from "../components/User";
+import { UserMobile } from "../components/UserMobile";
 import { Total } from "../components/Total";
 import { YearBtn } from "../components/YearBtn";
 
@@ -39,6 +40,7 @@ export default function Home() {
  const [postStatus, setPostStatus] = useState("none");
  const [year, setYear] = useState(2023);
  const [search, setSearch] = useState("");
+ const [userInfo, setUserInfo] = useState("s");
 
  const users = useQuery(["users", year], () => getAll(year));
 
@@ -87,13 +89,38 @@ export default function Home() {
   <>
    <Head>
     <title>Прогнозист</title>
-    <meta name="description" content="PWNews prognosticator results" />
+    <meta name="description" content="Результаты 'Прогнозиста' PWNews" />
     <meta
      name="viewport"
      content="width=device-width, initial-scale=1.0, maximum-scale=1"
     />
     <link rel="icon" href="/favicon.ico" />
    </Head>
+   {userInfo !== "" && (
+    <div className="w-full h-full fixed top-0 left-0 lg:hidden">
+     <div
+      onClick={() => setUserInfo("")}
+      className="w-full h-full bg-black opacity-70 "
+     ></div>
+     <div className="w-[80%] rounded-lg bg-slate-50 opacity-100 absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]">
+      <div className="text-center font-bold text-2xl my-3">{userInfo}</div>
+      <div className="grid grid-cols-3 md:grid-cols-5 w-full justify-between gap-3 px-5 pb-5">
+       {users.data
+        .find((user) => user.user === userInfo)
+        .results.map((res) => (
+         <div className="flex font-bold items-center">
+          <div className="bg-slate-600 py-2 w-10 text-center text-slate-50 border-2 border-slate-600 rounded-l-md">
+           {res.show}
+          </div>
+          <div className="text-slate-600 py-2 w-10 text-center border-2 border-slate-600 rounded-r-lg">
+           {res.points}
+          </div>
+         </div>
+        ))}
+      </div>
+     </div>
+    </div>
+   )}
    {process.env.NODE_ENV === "development" && (
     <form
      onSubmit={(e) => submitHandler(e)}
@@ -134,12 +161,15 @@ export default function Home() {
      </button>
     </form>
    )}
-   <div className="w-[1500px] xl:w-full mt-6 flex justify-center">
+   <div className="w-full mt-6 flex justify-center">
     <YearBtn changeYear={changeYear} year={year}>
      2023
     </YearBtn>
    </div>
-   <div className="w-[1500px] lg:w-full mt-5">
+   <div className="text-center italic mt-3 lg:hidden">
+    (нажмите на пользователя для просмотра баллов)
+   </div>
+   <div className="hidden lg:block w-full mt-5">
     <div className="w-full flex mb-1">
      <input
       placeholder="Поиск..."
@@ -222,6 +252,41 @@ export default function Home() {
        )}
       </div>
      </div>
+    </div>
+   </div>
+   <div className="lg:hidden w-full">
+    <div className="w-full px-2 font-bold mt-5">
+     <input
+      placeholder="Поиск..."
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      className="px-2 py-1 w-full rounded-lg border-2 border-slate-600"
+     ></input>
+     {users.data.map((user, i) =>
+      search === "" ? (
+       <UserMobile
+        setUserInfo={setUserInfo}
+        key={i}
+        userName={user.user}
+        place={i + 1}
+        total={sumArray(user.results)}
+       >
+        {i + 1 + ". " + user.user}
+       </UserMobile>
+      ) : (
+       user.user.slice(0, search.length) === search && (
+        <UserMobile
+         setUserInfo={setUserInfo}
+         key={i}
+         userName={user.user}
+         place={i + 1}
+         total={sumArray(user.results)}
+        >
+         {i + 1 + ". " + user.user}
+        </UserMobile>
+       )
+      )
+     )}
     </div>
    </div>
   </>

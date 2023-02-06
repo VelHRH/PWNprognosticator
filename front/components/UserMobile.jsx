@@ -1,8 +1,15 @@
 import React from "react";
 
-export const User = ({ children, place }) => {
+export const UserMobile = ({
+ children,
+ userName,
+ place,
+ total,
+ setUserInfo,
+}) => {
  return (
-  <div
+  <button
+   onClick={() => setUserInfo(userName)}
    className={`${place === 1 && "bg-amber-400 text-slate-50"} ${
     place === 2 && "bg-slate-400 text-slate-50"
    } ${place === 3 && "bg-orange-700 text-slate-50"} ${
@@ -12,6 +19,7 @@ export const User = ({ children, place }) => {
    } px-2 py-1 bg-slate-600 text-slate-50 my-2 lg:m-2 w-full rounded-lg h-8 flex justify-between`}
   >
    <div>{children}</div>
-  </div>
+   <div>{total}</div>
+  </button>
  );
 };
