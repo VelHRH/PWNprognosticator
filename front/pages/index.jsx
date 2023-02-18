@@ -6,7 +6,7 @@ import { UserMobile } from "../components/UserMobile";
 import { Total } from "../components/Total";
 import { YearBtn } from "../components/YearBtn";
 
-const postResults = async (show, data, year) => {
+const postResults = async (show, data, year, secret) => {
  await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/${year}`, {
   method: "POST",
   headers: {
@@ -15,6 +15,7 @@ const postResults = async (show, data, year) => {
   body: JSON.stringify({
    show,
    data,
+   password: secret,
   }),
  });
 };
@@ -45,19 +46,15 @@ export default function Home() {
  const users = useQuery(["users", year], () => getAll(year));
 
  const starMutation = useMutation(async (req) => {
-  await postResults(req.show.slice(0, 3), req.data, req.year);
+  await postResults(req.show.slice(0, 3), req.data, req.year, req.secret);
   await users.refetch();
  });
 
  const submitHandler = (e) => {
   e.preventDefault();
-  if (secret == process.env.NEXT_PUBLIC_SECRET) {
-   setPostStatus("success");
-   const data = results.split("\n");
-   starMutation.mutate({ show, data, year });
-  } else {
-   setPostStatus("fail");
-  }
+  const data = results.split("\n");
+  console.log(secret);
+  starMutation.mutate({ show, data, year, secret });
  };
 
  const mostShowsUser = () => {
