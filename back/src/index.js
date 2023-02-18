@@ -51,6 +51,8 @@ app.get("/2023", async (req, res) => {
 
 app.post("/2023", async (req, res) => {
   try{
+    config()
+    if (req.body.password !== process.env.SECRET) return res.status(403).json({message: "fail"})
     const data = await req.body.data;
     let ret = [];
     for (let i in data){
