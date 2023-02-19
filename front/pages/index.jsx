@@ -195,7 +195,8 @@ export default function Home() {
          {i + 1 + ". " + user.user}
         </User>
        ) : (
-        user.user.slice(0, search.length) === search && (
+        user.user.slice(0, search.length).toUpperCase() ===
+         search.toUpperCase() && (
          <User key={i} place={i + 1}>
           {i + 1 + ". " + user.user}
          </User>
@@ -218,7 +219,8 @@ export default function Home() {
            }
           </div>
          ) : (
-          user.user.slice(0, search.length) === search && (
+          user.user.slice(0, search.length).toUpperCase() ===
+           search.toUpperCase() && (
            <div
             key={i}
             className="py-1 bg-slate-100 w-full h-8 m-2 rounded-lg text-center"
@@ -240,7 +242,8 @@ export default function Home() {
           <Total>{sumArray(user.results)}</Total>
          </div>
         ) : (
-         user.user.slice(0, search.length) === search && (
+         user.user.slice(0, search.length).toUpperCase() ===
+          search.toUpperCase() && (
           <div key={user.user} className="my-2 pl-2">
            <Total>{sumArray(user.results)}</Total>
           </div>
@@ -259,6 +262,7 @@ export default function Home() {
       onChange={(e) => setSearch(e.target.value)}
       className="px-2 py-1 w-full rounded-lg border-2 border-slate-600"
      ></input>
+     {console.log(search.toUpperCase() == "FR")}
      {users.data.map((user, i) =>
       search === "" ? (
        <UserMobile
@@ -271,7 +275,8 @@ export default function Home() {
         {i + 1 + ". " + user.user}
        </UserMobile>
       ) : (
-       user.user.slice(0, search.length) === search && (
+       user.user.slice(0, search.length).toUpperCase() ===
+        search.toUpperCase() && (
         <UserMobile
          setUserInfo={setUserInfo}
          key={i}
