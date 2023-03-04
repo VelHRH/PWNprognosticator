@@ -5,6 +5,8 @@ import { User } from "../components/User";
 import { UserMobile } from "../components/UserMobile";
 import { Total } from "../components/Total";
 import { YearBtn } from "../components/YearBtn";
+import { Cell } from "../components/Сell";
+import { UserInfo } from "../components/UserInfo";
 
 const postResults = async (show, data, year, secret) => {
  await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/${year}`, {
@@ -34,7 +36,7 @@ export const getStaticProps = async () => {
  };
 };
 
-export default function Home() {
+const Home = () => {
  const [results, setResults] = useState("");
  const [show, setShow] = useState("");
  const [secret, setSecret] = useState("");
@@ -94,29 +96,7 @@ export default function Home() {
     <link rel="icon" href="/favicon.ico" />
    </Head>
    {userInfo !== "" && (
-    <div className="w-full h-full fixed top-0 left-0 lg:hidden">
-     <div
-      onClick={() => setUserInfo("")}
-      className="w-full h-full bg-black opacity-70 fixed"
-     ></div>
-     <div className="w-[80%] rounded-lg bg-slate-50 opacity-100 absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]">
-      <div className="text-center font-bold text-2xl my-3">{userInfo}</div>
-      <div className="grid grid-cols-3 md:grid-cols-5 w-full justify-between gap-3 px-5 pb-5">
-       {users.data
-        .find((user) => user.user === userInfo)
-        ?.results.map((res, i) => (
-         <div key={i} className="flex font-bold items-center">
-          <div className="bg-slate-600 py-2 w-10 text-center text-slate-50 border-2 border-slate-600 rounded-l-md">
-           {res.show}
-          </div>
-          <div className="text-slate-600 py-2 w-10 text-center border-2 border-slate-600 rounded-r-lg">
-           {res.points}
-          </div>
-         </div>
-        ))}
-      </div>
-     </div>
-    </div>
+    <UserInfo name={userInfo} setUserInfo={setUserInfo} users={users.data} />
    )}
    {process.env.NODE_ENV === "development" && (
     <form
@@ -183,7 +163,11 @@ export default function Home() {
        </div>
       ))}
       <div className="w-[calc(100%/13)] pr-2">
-       <Total>Всего</Total>
+       <div
+        className={`p-1 bg-slate-800 text-slate-50 rounded-lg text-center h-8`}
+       >
+        Всего
+       </div>
       </div>
      </div>
     </div>
@@ -209,27 +193,21 @@ export default function Home() {
        <div key={i} className="w-[calc(100%/13)] pl-2">
         {users.data.map((user, i) =>
          search === "" ? (
-          <div
-           key={i}
-           className="py-1 bg-slate-100 w-full h-8 m-2 rounded-lg text-center"
-          >
+          <Cell key={i}>
            {
             user.results[user.results.map((u) => u.show).indexOf(show.show)]
              ?.points
            }
-          </div>
+          </Cell>
          ) : (
           user.user.slice(0, search.length).toUpperCase() ===
            search.toUpperCase() && (
-           <div
-            key={i}
-            className="py-1 bg-slate-100 w-full h-8 m-2 rounded-lg text-center"
-           >
+           <Cell key={i}>
             {
              user.results[user.results.map((u) => u.show).indexOf(show.show)]
               ?.points
             }
-           </div>
+           </Cell>
           )
          )
         )}
@@ -293,4 +271,6 @@ export default function Home() {
    </div>
   </>
  );
-}
+};
+
+export default Home;
