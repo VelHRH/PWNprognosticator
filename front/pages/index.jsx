@@ -8,7 +8,6 @@ import { YearBtn } from "../components/YearBtn";
 import { Cell } from "../components/Сell";
 import { UserInfo } from "../components/UserInfo";
 import { Loading } from "../components/Loading";
-import styles from "../styles/Home.module.css";
 
 const postResults = async (show, data, year, secret) => {
  await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/${year}`, {
@@ -31,7 +30,7 @@ const getAll = async (year) => {
 
 export const getStaticProps = async () => {
  const phrases = [
-  "Она произойдет выстрее выиграша Сэми Зейном мирового чемпионства.",
+  "Она произойдет быстрее выиграша Сэми Зейном мирового чемпионства.",
   "Выход Гробовщика в любом случае длится дольше.",
   "Доминик Мистерио провел в тюрьме примерно в 200 раз больше времени, чем длится самая долгая загрузка.",
   "Вы знали, что джоши Мизуки претендовала на главный титул 5 раз в течении 6 лет прежде чем выиграть его?",
@@ -109,7 +108,7 @@ const Home = ({ loadingPhrase }) => {
      <img
       src="https://i.ibb.co/k8n3t8K/photo-2023-03-01-21-27-32.jpg"
       alt="BG"
-      className="w-full bg-cover fixed -z-10"
+      className="h-full bg-cover w-full md:h-auto fixed -z-10"
      />
     )}
     <div
@@ -120,7 +119,7 @@ const Home = ({ loadingPhrase }) => {
      {userInfo !== "" && (
       <UserInfo name={userInfo} setUserInfo={setUserInfo} users={users.data} />
      )}
-     {process.env.NODE_ENV === "development" && (
+     {process.env.NODE_ENV === "developmen" && (
       <form
        onSubmit={(e) => submitHandler(e)}
        className="flex items-center ml-[50%] translate-x-[-50%]"
@@ -272,6 +271,7 @@ const Home = ({ loadingPhrase }) => {
         onChange={(e) => setSearch(e.target.value)}
         className="px-2 py-1 w-full rounded-lg border-2 border-slate-600"
        ></input>
+       {users.isFetching ? <Loading phrase={loadingPhrase} /> : null}
        {users.data?.map((user, i) =>
         search === "" ? (
          <UserMobile
