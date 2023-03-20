@@ -30,15 +30,24 @@ const getAll = async (year) => {
 };
 
 export const getStaticProps = async () => {
+ const phrases = [
+  "Она произойдет выстрее выиграша Сэми Зейном мирового чемпионства.",
+  "Выход Гробовщика в любом случае длится дольше.",
+  "Доминик Мистерио провел в тюрьме примерно в 200 раз больше времени, чем длится самая долгая загрузка.",
+  "Вы знали, что джоши Мизуки претендовала на главный титул 5 раз в течении 6 лет прежде чем выиграть его?",
+ ];
  const queryClient = new QueryClient();
  await queryClient.prefetchQuery(["users", 2023], getAll(2023));
 
  return {
-  props: { dehydratedState: dehydrate(queryClient) },
+  props: {
+   dehydratedState: dehydrate(queryClient),
+   loadingPhrase: phrases[Math.floor(Math.random() * phrases.length)],
+  },
  };
 };
 
-const Home = () => {
+const Home = ({ loadingPhrase }) => {
  const [results, setResults] = useState("");
  const [show, setShow] = useState("");
  const [secret, setSecret] = useState("");
@@ -192,6 +201,8 @@ const Home = () => {
         </div>
        </div>
       </div>
+
+      {users.isFetching ? <Loading phrase={loadingPhrase} /> : null}
       <div className="w-full flex">
        <div className="w-[15%]">
         {users.data?.map((user, i) =>
