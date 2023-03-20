@@ -28,7 +28,7 @@ export const UserMobile = ({
    <div className="flex items-center">
     <div>{children}</div>
 
-    <i class="fa-solid fa-circle-info ml-3"></i>
+    <i className="fa-solid fa-circle-info ml-3"></i>
    </div>
    <div>{total}</div>
   </button>
