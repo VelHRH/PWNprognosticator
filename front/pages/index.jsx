@@ -34,6 +34,8 @@ export const getStaticProps = async () => {
   "Выход Гробовщика в любом случае длится дольше.",
   "Доминик Мистерио провел в тюрьме примерно в 200 раз больше времени, чем длится самая долгая загрузка.",
   "Вы знали, что джоши Мизуки претендовала на главный титул 5 раз в течении 6 лет прежде чем выиграть его?",
+  "Кофи Кингстон успел проиграть свой мировой титул Броку Леснару за время одной такой загрузки",
+  "Загрузка пройдет очень быстро. Это не тайтл-рейн Романа Рейнса",
  ];
  const queryClient = new QueryClient();
  await queryClient.prefetchQuery(["users", 2023], getAll(2023));
@@ -103,7 +105,7 @@ const Home = ({ loadingPhrase }) => {
     />
     <link rel="icon" href="/favicon.ico" />
    </Head>
-   <div>
+   <div className={`${darkTheme ? "dark" : ""}`}>
     {darkTheme && (
      <img
       src="https://i.ibb.co/k8n3t8K/photo-2023-03-01-21-27-32.jpg"
@@ -119,7 +121,7 @@ const Home = ({ loadingPhrase }) => {
      {userInfo !== "" && (
       <UserInfo name={userInfo} setUserInfo={setUserInfo} users={users.data} />
      )}
-     {process.env.NODE_ENV === "developmen" && (
+     {process.env.NODE_ENV === "development" && (
       <form
        onSubmit={(e) => submitHandler(e)}
        className="flex items-center ml-[50%] translate-x-[-50%]"
@@ -201,7 +203,9 @@ const Home = ({ loadingPhrase }) => {
        </div>
       </div>
 
-      {users.isFetching ? <Loading phrase={loadingPhrase} /> : null}
+      {users.isFetching ? (
+       <Loading phrase={loadingPhrase} isBlack={darkTheme} />
+      ) : null}
       <div className="w-full flex">
        <div className="w-[15%]">
         {users.data?.map((user, i) =>
@@ -271,7 +275,9 @@ const Home = ({ loadingPhrase }) => {
         onChange={(e) => setSearch(e.target.value)}
         className="px-2 py-1 w-full rounded-lg border-2 border-slate-600"
        ></input>
-       {users.isFetching ? <Loading phrase={loadingPhrase} /> : null}
+       {users.isFetching ? (
+        <Loading phrase={loadingPhrase} isBlack={darkTheme} />
+       ) : null}
        {users.data?.map((user, i) =>
         search === "" ? (
          <UserMobile
