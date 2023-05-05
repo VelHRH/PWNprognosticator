@@ -1,6 +1,5 @@
 import Head from "next/head";
 import { useState } from "react";
-import { useQuery, QueryClient, dehydrate, useMutation } from "react-query";
 import { User } from "../components/User";
 import { UserMobile } from "../components/UserMobile";
 import { Total } from "../components/Total";
@@ -8,20 +7,7 @@ import { YearBtn } from "../components/YearBtn";
 import { Cell } from "../components/Сell";
 import { UserInfo } from "../components/UserInfo";
 import { Loading } from "../components/Loading";
-
-const postResults = async (show, data, year, secret) => {
- await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/${year}`, {
-  method: "POST",
-  headers: {
-   "Content-Type": "application/json;charset=utf-8",
-  },
-  body: JSON.stringify({
-   show,
-   data,
-   password: secret,
-  }),
- });
-};
+import { AddDataForm } from "../components/AddDataForm";
 
 const getAll = async (year) => {
  const res = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/${year}`);
@@ -37,52 +23,29 @@ export const getStaticProps = async () => {
   "Кофи Кингстон успел проиграть свой мировой титул Броку Леснару за время одной такой загрузки",
   "Загрузка пройдет очень быстро. Это не тайтл-рейн Романа Рейнса",
  ];
- const queryClient = new QueryClient();
- await queryClient.prefetchQuery(["users", 2023], getAll(2023));
-
+ const users = await getAll(2023);
  return {
   props: {
-   dehydratedState: dehydrate(queryClient),
+   users,
    loadingPhrase: phrases[Math.floor(Math.random() * phrases.length)],
   },
+  revalidate: 600,
  };
 };
 
-const Home = ({ loadingPhrase }) => {
- const [results, setResults] = useState("");
- const [show, setShow] = useState("");
- const [secret, setSecret] = useState("");
- const [year, setYear] = useState(2023);
+const Home = ({ users, loadingPhrase }) => {
  const [search, setSearch] = useState("");
  const [userInfo, setUserInfo] = useState("");
  const [darkTheme, setDarkTheme] = useState(true);
 
- const users = useQuery(["users", year], () => getAll(year));
-
- const starMutation = useMutation(async (req) => {
-  await postResults(req.show.slice(0, 3), req.data, req.year, req.secret);
-  await users.refetch();
- });
-
- const submitHandler = (e) => {
-  e.preventDefault();
-  const data = results.split("\n");
-  starMutation.mutate({ show, data, year, secret });
- };
-
  const mostShowsUser = () => {
   let maxUser = { results: [] };
-  for (let i = 0; i < users.data?.length; i++) {
-   if (users.data[i].results.length > maxUser.results.length) {
-    maxUser = users.data[i];
+  for (let i = 0; i < users.length; i++) {
+   if (users[i].results.length > maxUser.results.length) {
+    maxUser = users[i];
    }
   }
   return maxUser;
- };
-
- const changeYear = async (year) => {
-  setYear(year);
-  await users.refetch();
  };
 
  function sumArray(array) {
@@ -93,7 +56,6 @@ const Home = ({ loadingPhrase }) => {
   return sum;
  }
 
- if (users.isError) return <div>Error: {users.error}</div>;
  return (
   <>
    <Head>
@@ -108,57 +70,22 @@ const Home = ({ loadingPhrase }) => {
    <div className={`${darkTheme ? "dark" : ""}`}>
     {darkTheme && (
      <img
-      src="https://i.ibb.co/k8n3t8K/photo-2023-03-01-21-27-32.jpg"
+      src="https://www.insidesport.in/wp-content/uploads/2023/04/FrbvMwvWAAEmk22.jpg"
       alt="BG"
       className="h-full bg-cover w-full md:h-auto fixed -z-10"
      />
     )}
     <div
      className={`w-full h-full  min-h-screen ${
-      darkTheme && "bg-black bg-opacity-70"
+      darkTheme && "bg-black bg-opacity-90"
      }`}
     >
      {userInfo !== "" && (
-      <UserInfo name={userInfo} setUserInfo={setUserInfo} users={users.data} />
+      <UserInfo name={userInfo} setUserInfo={setUserInfo} users={users} />
      )}
-     {process.env.NODE_ENV === "development" && (
-      <form
-       onSubmit={(e) => submitHandler(e)}
-       className="flex items-center ml-[50%] translate-x-[-50%]"
-      >
-       <div>
-        <input
-         value={show}
-         onChange={(e) => setShow(e.target.value)}
-         placeholder="Название шоу"
-         className="border-4 border-slate-900 focus:outline-none rounded-2xl mx-5 p-2"
-        ></input>
-        <input
-         value={secret}
-         onChange={(e) => setSecret(e.target.value)}
-         placeholder="Секретный код"
-         className="border-4 border-slate-900 focus:outline-none rounded-2xl mx-5 p-2"
-        ></input>
-       </div>
-       <textarea
-        cols="50"
-        rows="10"
-        placeholder="Данные..."
-        value={results}
-        onChange={(e) => setResults(e.target.value)}
-        className="border-4 border-slate-900 focus:outline-none rounded-2xl mx-5 p-2"
-       ></textarea>
-       <button
-        className={`bg-slate-900 border-slate-900 hover:bg-slate-50 hover:text-slate-900 mx-5 p-3 border-2 duration-300 text-slate-50`}
-       >
-        Отправить
-       </button>
-      </form>
-     )}
+     {process.env.NODE_ENV === "development" && <AddDataForm />}
      <div className="w-full flex justify-center pt-5">
-      <YearBtn changeYear={changeYear} year={year}>
-       2023
-      </YearBtn>
+      <YearBtn>2023</YearBtn>
       <div
        onClick={() => setDarkTheme((prev) => !prev)}
        className={`p-2 rounded-lg bg-slate-600 cursor-pointer hover:bg-slate-700 transition`}
@@ -208,7 +135,7 @@ const Home = ({ loadingPhrase }) => {
       ) : null}
       <div className="w-full flex">
        <div className="w-[15%]">
-        {users.data?.map((user, i) =>
+        {users.map((user, i) =>
          search === "" ? (
           <User key={i} place={i + 1}>
            {i + 1 + ". " + user.user}
@@ -226,7 +153,7 @@ const Home = ({ loadingPhrase }) => {
        <div className="flex-1 flex">
         {mostShowsUser()?.results.map((show, i) => (
          <div key={i} className="w-[calc(100%/13)] pl-2">
-          {users.data?.map((user, i) =>
+          {users.map((user, i) =>
            search === "" ? (
             <Cell key={i}>
              {
@@ -249,7 +176,7 @@ const Home = ({ loadingPhrase }) => {
          </div>
         ))}
         <div className="w-[calc(100%/13)] ml-2">
-         {users.data?.map((user) =>
+         {users.map((user) =>
           search === "" ? (
            <div key={user.user} className="my-2 pl-2">
             <Total>{sumArray(user.results)}</Total>
@@ -278,7 +205,7 @@ const Home = ({ loadingPhrase }) => {
        {users.isFetching ? (
         <Loading phrase={loadingPhrase} isBlack={darkTheme} />
        ) : null}
-       {users.data?.map((user, i) =>
+       {users.map((user, i) =>
         search === "" ? (
          <UserMobile
           setUserInfo={setUserInfo}
