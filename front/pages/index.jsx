@@ -6,7 +6,6 @@ import { Total } from "../components/Total";
 import { YearBtn } from "../components/YearBtn";
 import { Cell } from "../components/Сell";
 import { UserInfo } from "../components/UserInfo";
-import { Loading } from "../components/Loading";
 import { AddDataForm } from "../components/AddDataForm";
 
 const getAll = async (year) => {
@@ -15,25 +14,16 @@ const getAll = async (year) => {
 };
 
 export const getStaticProps = async () => {
- const phrases = [
-  "Она произойдет быстрее выиграша Сэми Зейном мирового чемпионства.",
-  "Выход Гробовщика в любом случае длится дольше.",
-  "Доминик Мистерио провел в тюрьме примерно в 200 раз больше времени, чем длится самая долгая загрузка.",
-  "Вы знали, что джоши Мизуки претендовала на главный титул 5 раз в течении 6 лет прежде чем выиграть его?",
-  "Кофи Кингстон успел проиграть свой мировой титул Броку Леснару за время одной такой загрузки",
-  "Загрузка пройдет очень быстро. Это не тайтл-рейн Романа Рейнса",
- ];
  const users = await getAll(2023);
  return {
   props: {
    users,
-   loadingPhrase: phrases[Math.floor(Math.random() * phrases.length)],
   },
   revalidate: 600,
  };
 };
 
-const Home = ({ users, loadingPhrase }) => {
+const Home = ({ users }) => {
  const [search, setSearch] = useState("");
  const [userInfo, setUserInfo] = useState("");
  const [darkTheme, setDarkTheme] = useState(true);
@@ -70,7 +60,7 @@ const Home = ({ users, loadingPhrase }) => {
    <div className={`${darkTheme ? "dark" : ""}`}>
     {darkTheme && (
      <img
-      src="https://www.insidesport.in/wp-content/uploads/2023/04/FrbvMwvWAAEmk22.jpg"
+      src="https://preview.redd.it/new-2023-night-of-champions-poster-v0-7hzp4v4e0cza1.jpg?auto=webp&s=6f7c2eafe7d9aded07b7e31feb022a8a243d5935"
       alt="BG"
       className="h-full bg-cover w-full md:h-auto fixed -z-10"
      />
@@ -110,19 +100,19 @@ const Home = ({ users, loadingPhrase }) => {
         placeholder="Поиск..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="px-2 py-1 ml-2 w-[15%] rounded-lg border-2 border-slate-600"
+        className="px-2 py-1 ml-2 w-f15 rounded-lg border-2 border-slate-600"
        ></input>
-       <div className="flex flex-1 ml-2">
+       <div className="flex flex-1 w-full">
         {mostShowsUser()?.results.map((show, i) => (
-         <div key={i} className={`w-[calc(100%/12.8)] pr-2`}>
-          <div className="bg-slate-300 py-1 rounded-lg md:h-8 flex items-center justify-center border-2 border-slate-900">
+         <div key={i} className={`w-2023 pl-2`}>
+          <div className="bg-slate-300 py-1 w-full rounded-lg text-center border-2 border-slate-900">
            {show.show}
           </div>
          </div>
         ))}
-        <div className="w-[calc(100%/13)] pr-2">
+        <div className="w-2023 pl-2">
          <div
-          className={`p-1 bg-slate-800 text-slate-50 rounded-lg flex items-center justify-center h-8 border-2 border-slate-100`}
+          className={`py-1 w-full bg-slate-800 text-slate-50 text-center rounded-lg border-2 border-slate-100`}
          >
           Всего
          </div>
@@ -130,11 +120,8 @@ const Home = ({ users, loadingPhrase }) => {
        </div>
       </div>
 
-      {users.isFetching ? (
-       <Loading phrase={loadingPhrase} isBlack={darkTheme} />
-      ) : null}
       <div className="w-full flex">
-       <div className="w-[15%]">
+       <div className="w-f15">
         {users.map((user, i) =>
          search === "" ? (
           <User key={i} place={i + 1}>
@@ -150,9 +137,9 @@ const Home = ({ users, loadingPhrase }) => {
          )
         )}
        </div>
-       <div className="flex-1 flex">
+       <div className="flex-1 flex w-full">
         {mostShowsUser()?.results.map((show, i) => (
-         <div key={i} className="w-[calc(100%/13)] pl-2">
+         <div key={i} className="w-2023 pl-2">
           {users.map((user, i) =>
            search === "" ? (
             <Cell key={i}>
@@ -175,7 +162,7 @@ const Home = ({ users, loadingPhrase }) => {
           )}
          </div>
         ))}
-        <div className="w-[calc(100%/13)] ml-2">
+        <div className="w-2023 ml-2">
          {users.map((user) =>
           search === "" ? (
            <div key={user.user} className="my-2 pl-2">
@@ -202,9 +189,6 @@ const Home = ({ users, loadingPhrase }) => {
         onChange={(e) => setSearch(e.target.value)}
         className="px-2 py-1 w-full rounded-lg border-2 border-slate-600"
        ></input>
-       {users.isFetching ? (
-        <Loading phrase={loadingPhrase} isBlack={darkTheme} />
-       ) : null}
        {users.map((user, i) =>
         search === "" ? (
          <UserMobile

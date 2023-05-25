@@ -8,6 +8,10 @@ module.exports = {
  ],
  theme: {
   extend: {
+    width: {
+      '2023': '7.69%',
+      'f15': '15%'
+    },
    animation: {
     shake: "shake 0.82s cubic-bezier(.36,.07,.19,.97) both",
    },
