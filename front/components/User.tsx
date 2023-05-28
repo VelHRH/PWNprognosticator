@@ -1,7 +1,13 @@
 import React from "react";
 import { useInView } from "react-intersection-observer";
 
-export const User = ({ children, place }) => {
+export const User = ({
+ children,
+ place,
+}: {
+ children: string;
+ place: number;
+}) => {
  const { ref, inView } = useInView();
  return (
   <div
@@ -18,7 +24,7 @@ export const User = ({ children, place }) => {
      : "opacity-0 -translate-y-5"
    }`}
   >
-   {children}
+   {children.length > 24 ? `${children.slice(0, 22)}...` : children}
   </div>
  );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import { useInView } from "react-intersection-observer";
 
-export const Cell = ({ children }) => {
+export const Cell = ({ children }: { children: string }) => {
  const { ref, inView } = useInView();
  return (
   <div
