@@ -60,9 +60,9 @@ const Home = ({ users }) => {
    <div className={`${darkTheme ? "dark" : ""}`}>
     {darkTheme && (
      <img
-      src="https://preview.redd.it/new-2023-night-of-champions-poster-v0-7hzp4v4e0cza1.jpg?auto=webp&s=6f7c2eafe7d9aded07b7e31feb022a8a243d5935"
+      src="https://spaziowrestling.it/wp-content/uploads/2023/06/9855545545.jpg"
       alt="BG"
-      className="h-full bg-cover w-full md:h-auto fixed -z-10"
+      class="h-screen w-full object-cover fixed -z-10"
      />
     )}
     <div
