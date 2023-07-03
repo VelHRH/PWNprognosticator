@@ -23,7 +23,7 @@ export const getStaticProps = async () => {
  };
 };
 
-const Home = ({ users }) => {
+export default function Home({ users }) {
  const [search, setSearch] = useState("");
  const [userInfo, setUserInfo] = useState("");
  const [darkTheme, setDarkTheme] = useState(true);
@@ -62,7 +62,7 @@ const Home = ({ users }) => {
      <img
       src="https://spaziowrestling.it/wp-content/uploads/2023/06/9855545545.jpg"
       alt="BG"
-      class="h-screen w-full object-cover fixed -z-10"
+      className="h-screen w-full object-cover fixed -z-10"
      />
     )}
     <div
@@ -106,7 +106,7 @@ const Home = ({ users }) => {
         {mostShowsUser()?.results.map((show, i) => (
          <div key={i} className={`w-2023 pl-2`}>
           <div className="bg-slate-300 py-1 w-full rounded-lg text-center border-2 border-slate-900">
-           {show.show}
+           {show.show === "Mit" ? "MitB" : show.show}
           </div>
          </div>
         ))}
@@ -221,6 +221,4 @@ const Home = ({ users }) => {
    </div>
   </>
  );
-};
-
-export default Home;
+}
