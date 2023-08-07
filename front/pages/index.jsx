@@ -60,13 +60,13 @@ export default function Home({ users }) {
    <div className={`${darkTheme ? "dark" : ""}`}>
     {darkTheme && (
      <img
-      src="https://spaziowrestling.it/wp-content/uploads/2023/06/9855545545.jpg"
+      src="https://wrestlingjunkie.usatoday.com/wp-content/uploads/sites/113/2023/07/wwe-summerslam-2023-rhodes-lesnar-splash.jpg"
       alt="BG"
       className="h-screen w-full object-cover fixed -z-10"
      />
     )}
     <div
-     className={`w-full h-full  min-h-screen ${
+     className={`w-full h-full px-2 min-h-screen ${
       darkTheme && "bg-black bg-opacity-90"
      }`}
     >
@@ -95,24 +95,22 @@ export default function Home({ users }) {
       (нажмите на пользователя для просмотра баллов)
      </div>
      <div className="hidden lg:block w-full mt-5 font-bold">
-      <div className="w-full flex mb-1">
+      <div className="w-full flex mb-3 gap-2">
        <input
         placeholder="Поиск..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="px-2 py-1 ml-2 w-f15 rounded-lg border-2 border-slate-600"
+        className="w-f15 rounded-lg border-2 border-slate-600 p-1"
        ></input>
-       <div className="flex flex-1 w-full">
+       <div className="flex flex-1 w-full gap-2">
         {mostShowsUser()?.results.map((show, i) => (
-         <div key={i} className={`w-2023 pl-2`}>
-          <div className="bg-slate-300 py-1 w-full rounded-lg text-center border-2 border-slate-900">
-           {show.show === "Mit" ? "MitB" : show.show}
-          </div>
+         <div className="bg-slate-300 w-2023 rounded-lg border-2 border-slate-900 flex items-center justify-center">
+          {show.show === "Mit" ? "MitB" : show.show}
          </div>
         ))}
-        <div className="w-2023 pl-2">
+        <div className="w-2023">
          <div
-          className={`py-1 w-full bg-slate-800 text-slate-50 text-center rounded-lg border-2 border-slate-100`}
+          className={`p-1 bg-slate-800 flex items-center justify-center text-slate-50 rounded-lg border-2 border-slate-100`}
          >
           Всего
          </div>
@@ -120,8 +118,8 @@ export default function Home({ users }) {
        </div>
       </div>
 
-      <div className="w-full flex">
-       <div className="w-f15">
+      <div className="w-full flex gap-2">
+       <div className="w-f15 flex flex-col gap-2">
         {users.map((user, i) =>
          search === "" ? (
           <User key={i} place={i + 1}>
@@ -137,9 +135,9 @@ export default function Home({ users }) {
          )
         )}
        </div>
-       <div className="flex-1 flex w-full">
+       <div className="flex-1 flex w-full gap-2">
         {mostShowsUser()?.results.map((show, i) => (
-         <div key={i} className="w-2023 pl-2">
+         <div key={i} className="w-2023 flex flex-col gap-2">
           {users.map((user, i) =>
            search === "" ? (
             <Cell key={i}>
@@ -162,19 +160,13 @@ export default function Home({ users }) {
           )}
          </div>
         ))}
-        <div className="w-2023 ml-2">
+        <div className="w-2023 flex flex-col gap-2">
          {users.map((user) =>
           search === "" ? (
-           <div key={user.user} className="my-2 pl-2">
-            <Total>{sumArray(user.results)}</Total>
-           </div>
+           <Total>{sumArray(user.results)}</Total>
           ) : (
            user.user.slice(0, search.length).toUpperCase() ===
-            search.toUpperCase() && (
-            <div key={user.user} className="my-2 pl-2">
-             <Total>{sumArray(user.results)}</Total>
-            </div>
-           )
+            search.toUpperCase() && <Total>{sumArray(user.results)}</Total>
           )
          )}
         </div>
