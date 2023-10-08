@@ -60,7 +60,7 @@ export default function Home({ users }) {
    <div className={`${darkTheme ? "dark" : ""}`}>
     {darkTheme && (
      <img
-      src="https://cdn.vox-cdn.com/thumbor/O9Dwxg3Tjfmdn5XE9qONRaTKmKg=/0x0:1128x1512/1200x800/filters:focal(482x430:662x610)/cdn.vox-cdn.com/uploads/chorus_image/image/72561529/Payback.0.png"
+      src="https://external-preview.redd.it/live-wwe-fast-lane-2023-discussion-thread-v0-LFOu_zHX3B7VccJtaw5tDqZ4eMGhywIn90pOLghpjkU.jpg?auto=webp&s=10c04cb61c7470f687bf863595f45146fffafd9e"
       alt="BG"
       className="h-screen w-full object-cover fixed -z-10"
      />
