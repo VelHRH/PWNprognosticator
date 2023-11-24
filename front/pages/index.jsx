@@ -57,7 +57,7 @@ export default function Home({ users }) {
       <div className={`${darkTheme ? 'dark' : ''}`}>
         {darkTheme && (
           <img
-            src="https://wrestlingheadlines.com/wp-content/uploads/2023/11/WWE-Crown-Jewel-2023.jpg"
+            src="https://www.f4wonline.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_700/MjAyMDM2ODIzMzYxMzMyNzQz/download-6.webp"
             alt="BG"
             className="h-screen w-full object-cover fixed -z-10"
           />
