@@ -8,14 +8,21 @@ import { Cell } from '../components/Сell';
 import { UserInfo } from '../components/UserInfo';
 import { AddDataForm } from '../components/AddDataForm';
 import { generateYears } from './utils';
+import { useRouter } from 'next/router';
 
 const getAll = async year => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/${year}`);
   return res.json();
 };
 
-export const getStaticProps = async () => {
-  const users = await getAll(new Date().getFullYear());
+export async function getStaticPaths() {
+  const paths = generateYears().map(year => ({ params: { year: year.toString() } }));
+
+  return { paths, fallback: false };
+}
+
+export const getStaticProps = async ({ params }) => {
+  const users = await getAll(params.year);
   return {
     props: {
       users,
@@ -28,6 +35,7 @@ export default function Home({ users }) {
   const [search, setSearch] = useState('');
   const [userInfo, setUserInfo] = useState('');
   const [darkTheme, setDarkTheme] = useState(true);
+  const router = useRouter();
   const mostShowsUser = () => {
     let maxUser = { results: [] };
     for (let i = 0; i < users.length; i++) {
@@ -67,7 +75,7 @@ export default function Home({ users }) {
           {process.env.NODE_ENV === 'development' && <AddDataForm />}
           <div className="w-full flex justify-center pt-5 gap-2">
             {generateYears().map(year => (
-              <YearBtn active={year === new Date().getFullYear()}>{year}</YearBtn>
+              <YearBtn active={year.toString() === router.query.year}>{year}</YearBtn>
             ))}
             <div
               onClick={() => setDarkTheme(prev => !prev)}
