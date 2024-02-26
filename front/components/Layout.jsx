@@ -1,10 +1,10 @@
 import Head from 'next/head';
-import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 import { AddDataForm } from '../components/AddDataForm';
-import { generateYears } from '../utils/generateYears';
 import { YearBtn } from '../components/YearBtn';
+import { generateYears } from '../utils/generateYears';
 
 const Layout = ({ children }) => {
   const [darkTheme, setDarkTheme] = useState(true);
@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
       </Head>
       {darkTheme && (
         <img
-          src="https://cdn.vox-cdn.com/thumbor/FSrHk3g9yM-yLjKYO5Em5xoWUQI=/0x0:2250x986/1200x800/filters:focal(945x313:1305x673)/cdn.vox-cdn.com/uploads/chorus_image/image/72971972/20231212_NetworkBreakers_RoyalRumble_date_PK__e2b5dc4157168eacf0de1fedbde54d1f.0.jpg"
+          src="https://i.ibb.co/5xMWgf4/dg8h6iq-08744e57-892a-4ef7-a475-8ad9c6befdd9.jpg"
           alt="BG"
           className="h-screen w-full object-cover fixed -z-10"
         />
