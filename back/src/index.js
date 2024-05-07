@@ -1,6 +1,6 @@
-import express from 'express';
-import { config } from 'dotenv';
 import cors from 'cors';
+import { config } from 'dotenv';
+import express from 'express';
 import mongoose from 'mongoose';
 import Year2023Model from './models/Year2023.js';
 

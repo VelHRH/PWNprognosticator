@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
       </Head>
       {darkTheme && (
         <img
-          src="https://i.ibb.co/5xMWgf4/dg8h6iq-08744e57-892a-4ef7-a475-8ad9c6befdd9.jpg"
+          src="https://upload.wikimedia.org/wikipedia/en/thumb/e/e7/King_and_Queen_of_the_Ring_2024_poster.jpg/1200px-King_and_Queen_of_the_Ring_2024_poster.jpg"
           alt="BG"
           className="h-screen w-full object-cover fixed -z-10"
         />

@@ -1,13 +1,14 @@
 import { useState } from 'react';
-import { User } from '../components/User';
-import { UserMobile } from '../components/UserMobile';
-import { Total } from '../components/Total';
-import { Cell } from '../components/Сell';
-import { UserInfo } from '../components/UserInfo';
 import Layout from '../components/Layout';
+import { Total } from '../components/Total';
+import { User } from '../components/User';
+import { UserInfo } from '../components/UserInfo';
+import { UserMobile } from '../components/UserMobile';
+import { Cell } from '../components/Сell';
 
 const getAll = async year => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/${year}`);
+  console.log(res)
   return res.json();
 };
 
