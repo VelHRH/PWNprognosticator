@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
       </Head>
       {darkTheme && (
         <img
-          src="https://www.usanetwork.com/sites/usablog/files/2024/05/wwe-clash-at-the-castle.jpg"
+          src="https://i.ibb.co/LCcpJJR/wwe-money-in-the-bank-poster-v0-632fynr1qd7d1.webp"
           alt="BG"
           className="h-screen w-full object-cover fixed -z-10"
         />
