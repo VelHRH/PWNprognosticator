@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
       </Head>
       {darkTheme && (
         <img
-          src="https://i.ibb.co/LCcpJJR/wwe-money-in-the-bank-poster-v0-632fynr1qd7d1.webp"
+          src="https://cdn.vox-cdn.com/thumbor/8txq0MNkE5U67n2HkxktH6qnO6U=/1400x1400/filters:format(png)/cdn.vox-cdn.com/uploads/chorus_asset/file/25528939/SS24P.png"
           alt="BG"
           className="h-screen w-full object-cover fixed -z-10"
         />

@@ -8,7 +8,9 @@ import { generateYears } from '../utils/generateYears';
 import Layout from '../components/Layout';
 
 const getAll = async year => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/${year}`);
+  const fetchSourse = `${process.env.NEXT_PUBLIC_API_HOST}/${year}`;
+  console.log(fetchSourse);
+  const res = await fetch(fetchSourse);
   return res.json();
 };
 

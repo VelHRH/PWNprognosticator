@@ -1,6 +1,6 @@
 import app from "./app.js"
 
-app.listen(process.env.PORT || 4445, err => {
+app.listen(process.env.PORT || 4444, err => {
   if (err) {
     return console.log(err);
   }

@@ -7,8 +7,7 @@
     "dev": "nodemon --exec babel-node src/index.js",
     "build": "babel src -d dist",
     "start": "node dist/index.js",
-    "both-dev": "concurrently \"npm run dev\" \"npm --prefix ../front/ run dev\"",
-    "vercel-build": "echo Hello"
+    "both-dev": "concurrently \"npm run dev\" \"npm --prefix ../front/ run dev\""
 },
   "author": "",
   "license": "ISC",
