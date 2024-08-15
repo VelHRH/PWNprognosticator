@@ -19,12 +19,12 @@ const Layout = ({ children }) => {
       </Head>
       {darkTheme && (
         <img
-          src="https://cdn.vox-cdn.com/thumbor/8txq0MNkE5U67n2HkxktH6qnO6U=/1400x1400/filters:format(png)/cdn.vox-cdn.com/uploads/chorus_asset/file/25528939/SS24P.png"
+          src="https://i.ibb.co/jZDkTgS/the-official-poster-for-wwe-bash-in-berlin-2024-v0-7z0fq0bkgphd1.png"
           alt="BG"
           className="h-screen w-full object-cover fixed -z-10"
         />
       )}
-      <div className={`w-full h-full px-2 min-h-screen ${darkTheme && 'bg-black bg-opacity-90'}`}>
+      <div className={`w-full h-full px-2 min-h-screen ${darkTheme && 'bg-black bg-opacity-80'}`}>
         {process.env.NODE_ENV === 'development' && <AddDataForm />}
         <div className="w-full flex justify-center pt-5 gap-2">
           {generateYears().map(year => (
