@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
       </Head>
       {darkTheme && (
         <img
-          src="https://i.ibb.co/jZDkTgS/the-official-poster-for-wwe-bash-in-berlin-2024-v0-7z0fq0bkgphd1.png"
+          src="https://i.ibb.co/HCVDr51/2024-wwe-crown-jewel-official-poster-v0-br1ozeg3cctd1.webp"
           alt="BG"
           className="h-screen w-full object-cover fixed -z-10"
         />
