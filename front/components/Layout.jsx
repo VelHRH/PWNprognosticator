@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
       </Head>
       {darkTheme && (
         <img
-          src="https://i.ibb.co/HCVDr51/2024-wwe-crown-jewel-official-poster-v0-br1ozeg3cctd1.webp"
+          src="https://images2.minutemediacdn.com/image/upload/c_crop,w_1280,h_720,x_0,y_0/c_fill,w_1200,ar_1:1,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/wrestling_on_fannation/01jc6y72fgrfynqzpmas.jpg"
           alt="BG"
           className="h-screen w-full object-cover fixed -z-10"
         />
