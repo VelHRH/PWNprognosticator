@@ -65,7 +65,7 @@ export default function Home({ users }) {
           <div className="flex flex-1 w-full gap-2">
             {mostShowsUser()?.results.map((show, i) => (
               <div className="bg-slate-300 w-2023 rounded-lg border-2 border-slate-900 flex items-center justify-center">
-                {show.show === 'Mit' ? 'MitB' : show.show}
+                {show.show === 'Mit' ? 'MitB' : show.show === 'KQo' ? 'KQoR' : show.show === 'SNM' ? "SNME" : show.show}
               </div>
             ))}
             <div className="w-2023">
