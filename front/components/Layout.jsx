@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
       </Head>
       {darkTheme && (
         <img
-          src="https://images2.minutemediacdn.com/image/upload/c_crop,w_1280,h_720,x_0,y_0/c_fill,w_1200,ar_1:1,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/wrestling_on_fannation/01jc6y72fgrfynqzpmas.jpg"
+          src="https://i.ibb.co/ymrpGvLv/8uja3qilcyge1.jpg"
           alt="BG"
           className="h-screen w-full object-cover fixed -z-10"
         />
