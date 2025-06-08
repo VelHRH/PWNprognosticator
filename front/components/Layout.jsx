@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
       </Head>
       {darkTheme && (
         <img
-          src="https://i.ibb.co/mFvDt9ks/official-wrestlemania-41-poster-v0-hp14iulxqqpe1.png"
+          src="https://i.ibb.co/zThysHj4/first-official-poster-for-summerslam-2025-v0-gjy02236odye1.webp"
           alt="BG"
           className="h-screen w-full object-cover fixed -z-10"
         />
