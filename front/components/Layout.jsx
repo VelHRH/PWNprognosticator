@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
       </Head>
       {darkTheme && (
         <img
-          src="https://i.ibb.co/zThysHj4/first-official-poster-for-summerslam-2025-v0-gjy02236odye1.webp"
+          src="https://i.ibb.co/gFMX3Fcf/489425738-18062991818501960-7787536390760163859-n.jpg"
           alt="BG"
           className="h-screen w-full object-cover fixed -z-10"
         />
