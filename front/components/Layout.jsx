@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
       </Head>
       {darkTheme && (
         <img
-          src="https://i.ibb.co/s9NBCg6q/iyo-sky-and-stephanie-vaquer-will-battle-to-determine-the-NEW-Women-s-World-Champion-at-Wrest.jpg"
+          src="https://i.ibb.co/RGqhZyWc/photo-2025-09-23-21-24-41.jpg"
           alt="BG"
           className="h-screen w-full object-cover fixed -z-10"
         />
