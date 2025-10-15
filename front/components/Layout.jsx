@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
       </Head>
       {darkTheme && (
         <img
-          src="https://i.ibb.co/RGqhZyWc/photo-2025-09-23-21-24-41.jpg"
+          src="https://i.ibb.co/QvygkVc4/Gut-Dr-AHW0-AQr-Swn.jpg"
           alt="BG"
           className="h-screen w-full object-cover fixed -z-10"
         />
