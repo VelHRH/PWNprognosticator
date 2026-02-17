@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
       </Head>
       {darkTheme && (
         <img
-          src="https://www.wwe.com/f/styles/wwe_16_9_l/public/2025/10/CS-054214_SNME25_DC_KA_1920x1080.jpg"
+          src="https://i.ebayimg.com/images/g/h04AAeSw6HRpAb2k/s-l1600.webp"
           alt="BG"
           className="h-screen w-full object-cover fixed -z-10"
         />
