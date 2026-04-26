@@ -41,6 +41,23 @@ app.get('/:year', async (req, res) => {
   }
 });
 
+app.get('/duplicates/all', async (req, res) => {
+  try {
+    const currentYear = new Date().getFullYear();
+    const documents = await Year2023Model.find({ year: currentYear });
+    const duplicates = [];
+    for (let i = 0; i < documents.length; i++) {
+      if (documents[i].results.length > 1) {
+        duplicates.push(documents[i]);
+      }
+    }
+    return res.json(duplicates.map(doc => doc.user));
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: 'Unable to delete data' });
+  }
+});
+
 app.post('/', async (req, res) => {
   try {
     const currentYear = new Date().getFullYear();
